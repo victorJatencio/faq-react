@@ -1,0 +1,39 @@
+.single__question {
+  border-bottom: 1px solid hsl(240, 5%, 91%);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+h4.question__header {
+  font-size: 14px;
+  font-weight: 400;
+}
+.info {
+  overflow: hidden;
+  height: auto;
+  min-height: 0;
+}
+.info p {
+  margin: 0;
+  margin-top: 1rem;
+  position: relative;
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.arrow {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.arrow_down {
+  position: relative;
+  transition: all 0.3s ease;
+  transform: rotate(0deg);
+}
+.arrow_top {
+  position: relative;
+  transition: all 0.3s ease;
+  transform: rotate(-180deg);
+}
