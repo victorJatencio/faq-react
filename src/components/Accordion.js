@@ -7,6 +7,8 @@ import { ReactComponent as Box } from "../images/illustration-box-desktop.svg";
 
 const Accordion = () => {
   const [questions, setQuestions] = useState(data);
+  const liveVariable = setQuestions();
+  console.log(liveVariable);
 
   return (
     <div className="accordion">
