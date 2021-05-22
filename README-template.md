@@ -1,6 +1,6 @@
 # Frontend Mentor - FAQ accordion card solution
 
-This is a solution to the [FAQ accordion card challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/faq-accordion-card-XlyjD0Oam). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [FAQ accordion card challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/faq-accordion-card-XlyjD0Oam). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -12,9 +12,6 @@ This is a solution to the [FAQ accordion card challenge on Frontend Mentor](http
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 **Note: Delete this note and update the table of contents based on what sections you keep.**
 
@@ -30,15 +27,7 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+No photo.
 
 ### Links
 
@@ -47,66 +36,102 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ## My process
 
+This project was created with react.js and regular css. Of course I'm usinf flexbox to make the layout adjust and media queries to control the layout on different breakpoints. Finally I deployed the roject with Netlify.
+
 ### Built with
 
 - Semantic HTML5 markup
 - CSS custom properties
 - Flexbox
-- CSS Grid
 - Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+In this case it was a little tricky to control the size of the svg and I have limited knowledge of svg. Instead I decided to create empty divs with special classes and then passing the svgs as background images and latter control the parent div properties to lace it where needed. Since Im learning React, I used "useState" hook to toggle the accordion.
 
 To see how you can add code snippets, see below:
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
 ```css
 .proud-of-this-css {
   color: papayawhip;
 }
 ```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+
+```js - Accordion component
+import React, { useState } from "react";
+import "./Accordion.css";
+import data from "../data";
+import SingleQuestion from "./SingleQuestion";
+
+import { ReactComponent as Box } from "../images/illustration-box-desktop.svg";
+
+const Accordion = () => {
+  const [questions, setQuestions] = useState(data);
+
+  return (
+    <div className="accordion">
+      <Box className="box" />
+      <div className="mobile__box"></div>
+      <div className="image">
+        <div className="woman__container"></div>
+        <div className="pattern"></div>
+      </div>
+      <div className="accordion__items">
+        <h1>FAQ</h1>
+        <div className="questions">
+          {questions.map((question) => {
+            return <SingleQuestion key={question.id} {...question} />;
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Accordion;
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+```js - Single accordion component
+import React, { useState } from "react";
+import "./SingleQuestion.css";
+import { ReactComponent as Arrow } from "../images/icon-arrow-down.svg";
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+const SingleQuestion = ({ title, info }) => {
+  const [showInfo, setShowInfo] = useState(false);
+
+  return (
+    <div className="single__question">
+      <div className="title">
+        {showInfo ? (
+          <h4 className="question__header" style={{ fontWeight: "bold" }}>
+            {title}
+          </h4>
+        ) : (
+          <h4 className="question__header">{title}</h4>
+        )}
+
+        <button className="arrow" onClick={() => setShowInfo(!showInfo)}>
+          {showInfo ? (
+            <Arrow className="arrow_top" />
+          ) : (
+            <Arrow className="arrow_down" />
+          )}
+        </button>
+      </div>
+      <div className="info">{showInfo && <p>{info}</p>}</div>
+    </div>
+  );
+};
+
+export default SingleQuestion;
+```
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+I had some issues trying to use svgs in these divs and later control them with css, so I had to set them as background images. It works great now, but Im sure there's a better way to use svgs.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
-
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
-
-## Author
-
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+```html
+<div className="woman__container"></div>
+<div className="pattern"></div>
+```
